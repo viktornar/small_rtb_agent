@@ -10,7 +10,7 @@ object BidRegistry {
 
   private def registry(bids: Set[Bid]): Behavior[Command] =
     Behaviors.receiveMessage {
-      case CreateBid(request, replyTo) =>
+      case CreateBid(request, matchBy, replyTo) =>
         val response = BidResponse("", request.id, 0.0, None, None)
         replyTo ! response
         registry(bids + Bid(request, response))
@@ -21,7 +21,7 @@ object BidRegistry {
 
   sealed trait Command
 
-  final case class CreateBid(request: BidRequest, replyTo: ActorRef[BidResponse]) extends Command
+  final case class CreateBid(request: BidRequest, matchBy: Seq[String], replyTo: ActorRef[BidResponse]) extends Command
 
   final case class GetBids(replyTo: ActorRef[Bids]) extends Command
 

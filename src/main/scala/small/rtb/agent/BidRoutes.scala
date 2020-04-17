@@ -3,10 +3,11 @@ package small.rtb.agent
 import akka.actor.typed.scaladsl.AskPattern._
 import akka.actor.typed.{ActorRef, ActorSystem}
 import akka.http.scaladsl.model.StatusCodes
-import akka.http.scaladsl.server.Directives.{as, complete, concat, entity, get, onSuccess, pathEnd, pathPrefix, post}
 import akka.http.scaladsl.server.Route
+import akka.http.scaladsl.unmarshalling.PredefinedFromStringUnmarshallers._
 import akka.util.Timeout
 import small.rtb.agent.BidRegistry._
+import akka.http.scaladsl.server.Directives._
 
 import scala.concurrent.Future
 
@@ -27,11 +28,16 @@ class BidRoutes(bidRegistry: ActorRef[BidRegistry.Command])(implicit val system:
               complete(getBids())
             },
             post {
-              entity(as[BidRequest]) { bid =>
-                onSuccess(createBid(bid)) { response =>
-                  complete((StatusCodes.Created, response))
+              parameters(Symbol("matches").as(CsvSeq[String]).?) {
+                matches => {
+                  entity(as[BidRequest]) { bid =>
+                    onSuccess(createBid(bid, matches)) { response =>
+                      complete((StatusCodes.Created, response))
+                    }
+                  }
                 }
               }
+
             }
           )
         }
@@ -41,6 +47,12 @@ class BidRoutes(bidRegistry: ActorRef[BidRegistry.Command])(implicit val system:
   def getBids(): Future[Bids] =
     bidRegistry.ask(GetBids)
 
-  def createBid(bid: BidRequest): Future[BidResponse] =
-    bidRegistry.ask(CreateBid(bid, _))
+  def createBid(bid: BidRequest, matches: Option[Seq[String]]): Future[BidResponse] = {
+    val matchBy = defaultMatches.intersect(matches.getOrElse(defaultMatches)) match {
+      case List() => defaultMatches
+      case xs => xs
+    }
+
+    bidRegistry.ask(CreateBid(bid, matchBy, _))
+  }
 }
