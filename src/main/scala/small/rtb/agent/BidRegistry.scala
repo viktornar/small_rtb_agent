@@ -14,10 +14,15 @@ object BidRegistry {
         val response = BidResponse("", request.id, 0.0, None, None)
         replyTo ! response
         registry(bids + Bid(request, response))
+      case GetBids(replyTo: ActorRef[Bids]) =>
+        replyTo ! Bids(bids.toSeq)
+        Behaviors.same
     }
 
   sealed trait Command
 
   final case class CreateBid(request: BidRequest, replyTo: ActorRef[BidResponse]) extends Command
+
+  final case class GetBids(replyTo: ActorRef[Bids]) extends Command
 
 }

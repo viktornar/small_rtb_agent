@@ -18,4 +18,6 @@ object JsonFormats {
   implicit val impressionJsonFormat = jsonFormat8(Impression)
   implicit val bidResponseJsonFormat = jsonFormat5(BidResponse)
   implicit val bidRequestJsonFormat = jsonFormat5(BidRequest)
+  implicit val bidJsonFormat = jsonFormat2(Bid)
+  implicit val bidsJsonFormat = jsonFormat1(Bids)
 }

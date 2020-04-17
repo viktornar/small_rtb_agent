@@ -24,7 +24,7 @@ class BidRoutes(bidRegistry: ActorRef[BidRegistry.Command])(implicit val system:
         pathEnd {
           concat(
             get {
-              complete(StatusCodes.NoContent)
+              complete(getBids())
             },
             post {
               entity(as[BidRequest]) { bid =>
@@ -37,6 +37,9 @@ class BidRoutes(bidRegistry: ActorRef[BidRegistry.Command])(implicit val system:
         }
       )
     }
+
+  def getBids(): Future[Bids] =
+    bidRegistry.ask(GetBids)
 
   def createBid(bid: BidRequest): Future[BidResponse] =
     bidRegistry.ask(CreateBid(bid, _))

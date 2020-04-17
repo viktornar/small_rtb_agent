@@ -28,7 +28,10 @@ class BidRoutesSpec extends WordSpec with Matchers with ScalaFutures with Scalat
       val request = HttpRequest(uri = "/bids")
 
       request ~> routes ~> check {
-        status should ===(StatusCodes.NoContent)
+        status should ===(StatusCodes.OK)
+
+        contentType should ===(ContentTypes.`application/json`)
+        entityAs[String] should ===("""{"bids":[]}""")
       }
     }
     "be able to register bid (POST /bids)" in {
