@@ -1,33 +1,36 @@
 package small.rtb.agent
 
-import akka.http.scaladsl.server.Directives._
+import akka.actor.typed.scaladsl.AskPattern._
+import akka.actor.typed.{ActorRef, ActorSystem}
 import akka.http.scaladsl.model.StatusCodes
+import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
+import akka.util.Timeout
+import small.rtb.agent.UserRegistry.{GetUserResponse, GetUsers, _}
 
 import scala.concurrent.Future
-import small.rtb.agent.UserRegistry._
-import akka.actor.typed.ActorRef
-import akka.actor.typed.ActorSystem
-import akka.actor.typed.scaladsl.AskPattern._
-import akka.util.Timeout
-import small.rtb.agent.UserRegistry.{ActionPerformed, GetUserResponse, GetUsers}
 
 class UserRoutes(userRegistry: ActorRef[UserRegistry.Command])(implicit val system: ActorSystem[_]) {
-  import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport._
+
   import JsonFormats._
+  import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport._
+  import models._
 
   private implicit val timeout = Timeout.create(system.settings.config.getDuration("small-rtb-agent-app.routes.ask-timeout"))
 
   def getUsers(): Future[Users] =
     userRegistry.ask(GetUsers)
+
   def getUser(name: String): Future[GetUserResponse] =
     userRegistry.ask(GetUser(name, _))
+
   def createUser(user: User): Future[ActionPerformed] =
     userRegistry.ask(CreateUser(user, _))
+
   def deleteUser(name: String): Future[ActionPerformed] =
     userRegistry.ask(DeleteUser(name, _))
 
-  val userRoutes: Route =
+  val routes: Route =
     pathPrefix("users") {
       concat(
         pathEnd {

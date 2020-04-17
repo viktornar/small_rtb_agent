@@ -5,6 +5,7 @@ import akka.actor.typed.scaladsl.Behaviors
 import akka.actor.typed.scaladsl.adapter._
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.Route
+import akka.http.scaladsl.server.RouteConcatenation.concat
 
 import scala.util.{Failure, Success}
 
@@ -28,10 +29,14 @@ object Application {
   def main(args: Array[String]): Unit = {
     val rootBehavior = Behaviors.setup[Nothing] { context =>
       val userRegistryActor = context.spawn(UserRegistry(), "UserRegistryActor")
+      val bidRegistryActor = context.spawn(BidRegistry(), "BidRegistryActor")
       context.watch(userRegistryActor)
+      context.watch(bidRegistryActor)
 
-      val routes = new UserRoutes(userRegistryActor)(context.system)
-      startHttpServer(routes.userRoutes, context.system)
+      val userRoutes = new UserRoutes(userRegistryActor)(context.system)
+      val bidRoutes = new BidRoutes(bidRegistryActor)(context.system)
+
+      startHttpServer(concat(userRoutes.routes, bidRoutes.routes), context.system)
 
       Behaviors.empty
     }

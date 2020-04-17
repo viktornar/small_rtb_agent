@@ -2,7 +2,9 @@ package small.rtb.agent
 
 import small.rtb.agent.common.???
 
-package object model {
+import scala.collection.immutable
+
+package object models {
   type Banners = List[Banner]
 
   final case class Campaign(id: Int, country: String, targeting: Targeting, banners: Banners, bid: Double)
@@ -15,14 +17,22 @@ package object model {
 
   final case class Site(id: Int, domain: String)
 
-  final case class User(id: String, geo: Option[Geo])
-
   final case class Device(id: String, geo: Option[Geo])
 
   final case class Geo(country: Option[String])
 
   final case class BidRequest(id: String, imp: Option[List[Impression]], site: Site, user: Option[User], device: Option[Device])
 
+  final case class Bids(bids: immutable.Seq[BidRequest])
+
   final case class BidResponse(id: String, bidRequestId: String, price: Double, adid: Option[String], banner: Option[Banner])
+
+  final case class RouteDesc(path: String, info: String)
+
+  final case class User(id: String, geo: Option[Geo])
+
+  final case class Users(users: immutable.Seq[User])
+
+  final case class ActionPerformed(description: String)
 
 }

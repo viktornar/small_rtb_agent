@@ -1,17 +1,21 @@
 package small.rtb.agent
 
-import UserRegistry.ActionPerformed
-
-//#json-formats
 import spray.json.DefaultJsonProtocol
 
-object JsonFormats  {
-  // import the default encoders for primitive types (Int, String, Lists etc)
+object JsonFormats {
+
   import DefaultJsonProtocol._
+  import models._
 
-  implicit val userJsonFormat = jsonFormat3(User)
+  implicit val geoJsonFormat = jsonFormat1(Geo)
+  implicit val userJsonFormat = jsonFormat2(User)
   implicit val usersJsonFormat = jsonFormat1(Users)
-
+  implicit val routeDescJsonFormat = jsonFormat2(RouteDesc)
   implicit val actionPerformedJsonFormat = jsonFormat1(ActionPerformed)
+  implicit val bannerJsonFormat = jsonFormat4(Banner)
+  implicit val siteJsonFormat = jsonFormat2(Site)
+  implicit val deviceJsonFormat = jsonFormat2(Device)
+  implicit val impressionJsonFormat = jsonFormat8(Impression)
+  implicit val bidResponseJsonFormat = jsonFormat5(BidResponse)
+  implicit val bidRequestJsonFormat = jsonFormat5(BidRequest)
 }
-//#json-formats

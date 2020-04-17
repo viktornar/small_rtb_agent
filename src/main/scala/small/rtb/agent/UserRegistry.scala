@@ -1,22 +1,22 @@
 package small.rtb.agent
 
-import akka.actor.typed.ActorRef
-import akka.actor.typed.Behavior
 import akka.actor.typed.scaladsl.Behaviors
-import scala.collection.immutable
-
-final case class User(name: String, age: Int, countryOfResidence: String)
-final case class Users(users: immutable.Seq[User])
+import akka.actor.typed.{ActorRef, Behavior}
+import small.rtb.agent.models.{ActionPerformed, User, Users}
 
 object UserRegistry {
+
   sealed trait Command
+
   final case class GetUsers(replyTo: ActorRef[Users]) extends Command
+
   final case class CreateUser(user: User, replyTo: ActorRef[ActionPerformed]) extends Command
+
   final case class GetUser(name: String, replyTo: ActorRef[GetUserResponse]) extends Command
+
   final case class DeleteUser(name: String, replyTo: ActorRef[ActionPerformed]) extends Command
 
   final case class GetUserResponse(maybeUser: Option[User])
-  final case class ActionPerformed(description: String)
 
   def apply(): Behavior[Command] = registry(Set.empty)
 
@@ -26,13 +26,13 @@ object UserRegistry {
         replyTo ! Users(users.toSeq)
         Behaviors.same
       case CreateUser(user, replyTo) =>
-        replyTo ! ActionPerformed(s"User ${user.name} created.")
+        replyTo ! ActionPerformed(s"User ${user.id} created.")
         registry(users + user)
-      case GetUser(name, replyTo) =>
-        replyTo ! GetUserResponse(users.find(_.name == name))
+      case GetUser(id, replyTo) =>
+        replyTo ! GetUserResponse(users.find(_.id == id))
         Behaviors.same
-      case DeleteUser(name, replyTo) =>
-        replyTo ! ActionPerformed(s"User $name deleted.")
-        registry(users.filterNot(_.name == name))
+      case DeleteUser(id, replyTo) =>
+        replyTo ! ActionPerformed(s"User $id deleted.")
+        registry(users.filterNot(_.id == id))
     }
 }
