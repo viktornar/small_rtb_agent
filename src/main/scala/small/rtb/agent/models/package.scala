@@ -23,9 +23,11 @@ package object models {
 
   final case class BidRequest(id: String, imp: Option[List[Impression]], site: Site, user: Option[User], device: Option[Device])
 
-  final case class Bids(bids: immutable.Seq[BidRequest])
-
   final case class BidResponse(id: String, bidRequestId: String, price: Double, adid: Option[String], banner: Option[Banner])
+
+  final case class Bid(request: BidRequest, response: BidResponse)
+
+  final case class Bids(bids: immutable.Seq[Bid])
 
   final case class RouteDesc(path: String, info: String)
 

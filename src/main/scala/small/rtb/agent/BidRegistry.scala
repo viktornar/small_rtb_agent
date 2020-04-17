@@ -8,15 +8,16 @@ object BidRegistry {
 
   import models._
 
-  private def registry(bids: Set[BidRequest]): Behavior[Command] =
+  private def registry(bids: Set[Bid]): Behavior[Command] =
     Behaviors.receiveMessage {
-      case CreateBid(bid, replyTo) =>
-        replyTo ! ActionPerformed(s"Bid ${bid.id} registered.")
-        registry(bids + bid)
+      case CreateBid(request, replyTo) =>
+        val response = BidResponse("", request.id, 0.0, None, None)
+        replyTo ! response
+        registry(bids + Bid(request, response))
     }
 
   sealed trait Command
 
-  final case class CreateBid(bid: BidRequest, replyTo: ActorRef[ActionPerformed]) extends Command
+  final case class CreateBid(request: BidRequest, replyTo: ActorRef[BidResponse]) extends Command
 
 }

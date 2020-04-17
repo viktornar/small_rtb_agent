@@ -17,6 +17,7 @@ class BidRoutes(bidRegistry: ActorRef[BidRegistry.Command])(implicit val system:
   import models._
 
   private implicit val timeout = Timeout.create(system.settings.config.getDuration("small-rtb-agent-app.routes.ask-timeout"))
+
   val routes: Route =
     pathPrefix("bids") {
       concat(
@@ -27,8 +28,8 @@ class BidRoutes(bidRegistry: ActorRef[BidRegistry.Command])(implicit val system:
             },
             post {
               entity(as[BidRequest]) { bid =>
-                onSuccess(createBid(bid)) { performed =>
-                  complete((StatusCodes.Created, performed))
+                onSuccess(createBid(bid)) { response =>
+                  complete((StatusCodes.Created, response))
                 }
               }
             }
@@ -37,6 +38,6 @@ class BidRoutes(bidRegistry: ActorRef[BidRegistry.Command])(implicit val system:
       )
     }
 
-  def createBid(bid: BidRequest): Future[ActionPerformed] =
+  def createBid(bid: BidRequest): Future[BidResponse] =
     bidRegistry.ask(CreateBid(bid, _))
 }
