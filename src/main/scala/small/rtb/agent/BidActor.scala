@@ -22,14 +22,14 @@ object BidActor {
         replyTo ! Bids(bids.toSeq)
         Behaviors.same
       case CreateBid(bidRequest, campaign, replyTo) =>
-        val bidResponse = getBidResponse(bidRequest, Some(campaign))
+        val bidResponse = getBidResponse(bidRequest, campaign)
         replyTo ! bidResponse
-        registry(bids + Bid(bidRequest, bidResponse, Some(campaign)))
+        registry(bids + Bid(bidRequest, bidResponse, campaign))
     }
   }
 
   sealed trait Command
   final case class GetBids(replyTo: ActorRef[Bids]) extends Command
 
-  final case class CreateBid(bidRequest: BidRequest, campaign: Campaign, replyTo: ActorRef[Option[BidResponse]]) extends Command
+  final case class CreateBid(bidRequest: BidRequest, campaign: Option[Campaign], replyTo: ActorRef[Option[BidResponse]]) extends Command
 }

@@ -18,12 +18,12 @@ object CampaignActor {
 
     }
 
-  private def getMatchedCampaign(bidRequest: BidRequest, matchBy: Seq[String], campaigns: Campaigns): Campaign = {
-    CampaignGenerator(None, None, None)
+  private def getMatchedCampaign(bidRequest: BidRequest, matchBy: Seq[String], campaigns: Campaigns): Option[Campaign] = {
+    Some(CampaignGenerator(None, None, None))
   }
 
   sealed trait Command
 
-  final case class GetMatchedCampaign(bidRequest: BidRequest, matchBy: Seq[String], replyTo: ActorRef[Campaign]) extends Command
+  final case class GetMatchedCampaign(bidRequest: BidRequest, matchBy: Seq[String], replyTo: ActorRef[Option[Campaign]]) extends Command
 
 }

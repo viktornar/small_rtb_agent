@@ -56,10 +56,10 @@ class BidRoutes(bidActor: ActorRef[BidActor.Command], campaignActor: ActorRef[Ca
       case xs => xs
     }
 
-    getMatchedCampaign(bidRequest, matchBy).flatMap((campaign: Campaign) => {
+    getMatchedCampaign(bidRequest, matchBy).flatMap((campaign: Option[Campaign]) => {
       bidActor.ask(CreateBid(bidRequest, campaign, _))
     })
   }
 
-  def getMatchedCampaign(bidRequest: BidRequest, matchBy: Seq[String]): Future[Campaign] = campaignActor.ask(GetMatchedCampaign(bidRequest, matchBy, _))
+  def getMatchedCampaign(bidRequest: BidRequest, matchBy: Seq[String]): Future[Option[Campaign]] = campaignActor.ask(GetMatchedCampaign(bidRequest, matchBy, _))
 }
