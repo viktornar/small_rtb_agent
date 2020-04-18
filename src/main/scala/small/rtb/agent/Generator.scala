@@ -11,12 +11,11 @@ object Generator {
   import small.rtb.agent.model._
   import spray.json._
 
-  def main(args: Array[String]): Unit = {
-    val campaigns: List[Campaign] = CampaignsGenerator(Some(4), Some(10), Some(1000))
-    println(campaigns.toJson.prettyPrint)
+  def apply(): Set[Campaign] = {
+    loadGeneratedCampaigns.getOrElse(Set.empty).toSet
   }
 
-  def loadGeneratedCampaigns: List[Campaign] = {
+  def loadGeneratedCampaigns: Option[Campaigns] = {
     import DefaultJsonProtocol._
     val campaignsJson: String = resourceAsStreamFromSrc(List[String]("campaigns.json")) match {
       case None => ""
@@ -24,6 +23,11 @@ object Generator {
     }
 
     val jsonAst = campaignsJson.parseJson
-    jsonAst.convertTo[List[Campaign]]
+    Some(jsonAst.convertTo[Set[Campaign]])
+  }
+
+  def main(args: Array[String]): Unit = {
+    val campaigns: Set[Campaign] = CampaignsGenerator(Some(4), Some(10), Some(1000))
+    println(campaigns.toJson.prettyPrint)
   }
 }
