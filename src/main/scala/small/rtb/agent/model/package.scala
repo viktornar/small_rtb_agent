@@ -5,7 +5,7 @@ import scala.collection.immutable
 package object model {
   type Banners = List[Banner]
 
-  type Campaigns = List[Campaign]
+  type Campaigns = Set[Campaign]
 
   type BidRequests = List[BidRequest]
 
@@ -29,7 +29,7 @@ package object model {
 
   final case class BidResponse(id: String, bidRequestId: String, price: Double, adid: Option[String], banner: Option[Banner])
 
-  final case class Bid(request: BidRequest, response: BidResponse, campaign: Option[Campaign])
+  final case class Bid(request: BidRequest, response: Option[BidResponse], campaign: Option[Campaign])
 
   final case class Bids(bids: immutable.Seq[Bid])
 
