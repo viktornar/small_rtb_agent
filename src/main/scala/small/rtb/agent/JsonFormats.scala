@@ -2,9 +2,8 @@ package small.rtb.agent
 
 import spray.json.DefaultJsonProtocol
 
-object JsonFormats {
+object JsonFormats extends DefaultJsonProtocol {
 
-  import DefaultJsonProtocol._
   import model._
 
   implicit val geoJsonFormat = jsonFormat1(Geo)
@@ -12,12 +11,14 @@ object JsonFormats {
   implicit val usersJsonFormat = jsonFormat1(Users)
   implicit val routeDescJsonFormat = jsonFormat2(RouteDesc)
   implicit val actionPerformedJsonFormat = jsonFormat1(ActionPerformed)
-  implicit val bannerJsonFormat = jsonFormat4(Banner)
   implicit val siteJsonFormat = jsonFormat2(Site)
   implicit val deviceJsonFormat = jsonFormat2(Device)
   implicit val impressionJsonFormat = jsonFormat8(Impression)
-  implicit val bidResponseJsonFormat = jsonFormat5(BidResponse)
+  implicit val bannerJsonFormat = jsonFormat4(Banner)
+  implicit val targetingJsonFormat = jsonFormat1(Targeting)
+  implicit val campaignJsonFormat = jsonFormat5(Campaign)
   implicit val bidRequestJsonFormat = jsonFormat5(BidRequest)
-  implicit val bidJsonFormat = jsonFormat2(Bid)
+  implicit val bidResponseJsonFormat = jsonFormat5(BidResponse)
+  implicit val bidJsonFormat = jsonFormat3(Bid)
   implicit val bidsJsonFormat = jsonFormat1(Bids)
 }
