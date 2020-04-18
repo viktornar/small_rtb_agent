@@ -28,10 +28,12 @@ object Application {
 
   def main(args: Array[String]): Unit = {
     val rootBehavior = Behaviors.setup[Nothing] { context =>
-      val bidRegistryActor = context.spawn(BidRegistry(), "BidRegistryActor")
-      context.watch(bidRegistryActor)
+      val campaignActor = context.spawn(CampaignActor(), "CampaignRegistryActor")
+      context.watch(campaignActor)
+      val bidActor = context.spawn(BidActor(), "BidRegistryActor")
+      context.watch(bidActor)
 
-      val bidRoutes = new BidRoutes(bidRegistryActor)(context.system)
+      val bidRoutes = new BidRoutes(bidActor, campaignActor)(context.system)
 
       startHttpServer(concat(bidRoutes.routes), context.system)
 
