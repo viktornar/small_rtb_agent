@@ -21,7 +21,7 @@ class BidRoutesSpec extends WordSpec with Matchers with ScalaFutures with Scalat
 
   import JsonFormats._
   import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport._
-  import models._
+  import model._
 
   "BidRoutes" should {
     "return no content for bids (GET /bids)" in {

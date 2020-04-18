@@ -4,8 +4,14 @@ import small.rtb.agent.common.???
 
 import scala.collection.immutable
 
-package object models {
+package object model {
   type Banners = List[Banner]
+
+  type Campaigns = List[Campaign]
+
+  type BidRequests = List[BidRequest]
+
+  type Impressions = List[Impression]
 
   final case class Campaign(id: Int, country: String, targeting: Targeting, banners: Banners, bid: Double)
 
@@ -25,7 +31,7 @@ package object models {
 
   final case class BidResponse(id: String, bidRequestId: String, price: Double, adid: Option[String], banner: Option[Banner])
 
-  final case class Bid(request: BidRequest, response: BidResponse)
+  final case class Bid(request: BidRequest, response: BidResponse, campaign: Option[Campaign])
 
   final case class Bids(bids: immutable.Seq[Bid])
 
