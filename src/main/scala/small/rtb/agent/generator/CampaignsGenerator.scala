@@ -3,7 +3,6 @@ package small.rtb.agent.generator
 import scala.collection.mutable.ListBuffer
 
 object CampaignsGenerator {
-
   import small.rtb.agent.model._
 
   def apply(campaignsLength: Option[Int], bannersLength: Option[Int], targetingSiteIdsLength: Option[Int]): Campaigns = {

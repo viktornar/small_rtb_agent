@@ -1,11 +1,9 @@
 package small.rtb.agent.generator
-
 import com.github.javafaker.Faker
 
 import scala.collection.mutable.ListBuffer
 
 object CampaignGenerator {
-
   import small.rtb.agent.model._
 
   def apply(compaignId: Option[Int], bannersLength: Option[Int], targetingSiteIdsLength: Option[Int]): Campaign = {
@@ -21,7 +19,7 @@ object CampaignGenerator {
     for (_ <- 1 to bannersLength.getOrElse(100)) {
       bannersBuffer += Banner(
         faker.number().randomDigit(),
-        faker.internet().url(),
+        faker.internet().url() + "/banner.png",
         faker.number().numberBetween(200, 600),
         faker.number().numberBetween(200, 600)
       )
