@@ -37,5 +37,5 @@ package object models {
 
   final case class ActionPerformed(description: String)
 
-  val defaultMatches = immutable.Seq("bidFloor", "country", "dimension", "siteId")
+  val defaultMatchesValues = immutable.Seq("bidFloor", "country", "siteId", "dimension")
 }

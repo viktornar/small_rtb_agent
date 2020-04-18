@@ -48,8 +48,8 @@ class BidRoutes(bidRegistry: ActorRef[BidRegistry.Command])(implicit val system:
     bidRegistry.ask(GetBids)
 
   def createBid(bid: BidRequest, matches: Option[Seq[String]]): Future[BidResponse] = {
-    val matchBy = defaultMatches.intersect(matches.getOrElse(defaultMatches)) match {
-      case List() => defaultMatches
+    val matchBy = defaultMatchesValues.intersect(matches.getOrElse(defaultMatchesValues)) match {
+      case List() => defaultMatchesValues
       case xs => xs
     }
 
