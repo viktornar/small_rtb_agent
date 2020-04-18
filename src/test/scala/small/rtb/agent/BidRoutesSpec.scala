@@ -13,8 +13,9 @@ class BidRoutesSpec extends WordSpec with Matchers with ScalaFutures with Scalat
 
   implicit def typedSystem = testKit.system
 
-  lazy val routes = new BidRoutes(bidRegistry).routes
-  val bidRegistry = testKit.spawn(BidRegistry())
+  lazy val routes = new BidRoutes(bidActor, campaignActor).routes
+  val bidActor = testKit.spawn(BidActor())
+  val campaignActor = testKit.spawn(CampaignActor())
 
   override def createActorSystem(): akka.actor.ActorSystem =
     testKit.system.toClassic
