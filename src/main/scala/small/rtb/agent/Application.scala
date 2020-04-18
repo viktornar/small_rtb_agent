@@ -1,11 +1,10 @@
 package small.rtb.agent
 
 import akka.actor.typed.ActorSystem
-import akka.actor.typed.scaladsl.Behaviors
 import akka.actor.typed.scaladsl.adapter._
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.Route
-import akka.http.scaladsl.server.RouteConcatenation.concat
+import small.rtb.agent.generator.BidRequestGenerator
 
 import scala.util.{Failure, Success}
 
@@ -27,19 +26,28 @@ object Application {
   }
 
   def main(args: Array[String]): Unit = {
-    val rootBehavior = Behaviors.setup[Nothing] { context =>
-      val userRegistryActor = context.spawn(UserRegistry(), "UserRegistryActor")
-      val bidRegistryActor = context.spawn(BidRegistry(), "BidRegistryActor")
-      context.watch(userRegistryActor)
-      context.watch(bidRegistryActor)
+    //    val rootBehavior = Behaviors.setup[Nothing] { context =>
+    //      val userRegistryActor = context.spawn(UserRegistry(), "UserRegistryActor")
+    //      val bidRegistryActor = context.spawn(BidRegistry(), "BidRegistryActor")
+    //      context.watch(userRegistryActor)
+    //      context.watch(bidRegistryActor)
+    //
+    //      val userRoutes = new UserRoutes(userRegistryActor)(context.system)
+    //      val bidRoutes = new BidRoutes(bidRegistryActor)(context.system)
+    //
+    //      startHttpServer(concat(userRoutes.routes, bidRoutes.routes), context.system)
+    //
+    //      Behaviors.empty
+    //    }
+    //
+    //    ActorSystem[Nothing](rootBehavior, "SimpleRtbAgentHttpServer")
 
-      val userRoutes = new UserRoutes(userRegistryActor)(context.system)
-      val bidRoutes = new BidRoutes(bidRegistryActor)(context.system)
+    import generator.CampaignGenerator
 
-      startHttpServer(concat(userRoutes.routes, bidRoutes.routes), context.system)
+    val campaign = CampaignGenerator(None, Some(100), Some(1000))
+    println(campaign)
 
-      Behaviors.empty
-    }
-    val system = ActorSystem[Nothing](rootBehavior, "SimpleRtbAgentHttpServer")
+    val bidRequest = BidRequestGenerator(true, true, true, Some(1), 1000)
+    println(bidRequest)
   }
 }

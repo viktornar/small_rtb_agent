@@ -2,7 +2,7 @@ package small.rtb.agent
 
 import akka.actor.typed.scaladsl.Behaviors
 import akka.actor.typed.{ActorRef, Behavior}
-import small.rtb.agent.models.{ActionPerformed, User, Users}
+import small.rtb.agent.model.{ActionPerformed, User, Users}
 
 object UserRegistry {
 

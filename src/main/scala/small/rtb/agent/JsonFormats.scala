@@ -5,7 +5,7 @@ import spray.json.DefaultJsonProtocol
 object JsonFormats {
 
   import DefaultJsonProtocol._
-  import models._
+  import model._
 
   implicit val geoJsonFormat = jsonFormat1(Geo)
   implicit val userJsonFormat = jsonFormat2(User)
