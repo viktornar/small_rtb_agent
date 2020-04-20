@@ -2,64 +2,10 @@
   {
     "banners": [
       {
-        "height": 312,
-        "id": 3,
-        "src": "www.efrain-monahan.com/banner.png",
-        "width": 340
-      },
-      {
-        "height": 464,
+        "height": 450,
         "id": 7,
         "src": "www.ulysses-dooley.net/banner.png",
-        "width": 482
-      },
-      {
-        "height": 590,
-        "id": 4,
-        "src": "www.willard-bartoletti.info/banner.png",
-        "width": 584
-      },
-      {
-        "height": 487,
-        "id": 2,
-        "src": "www.dominick-heidenreich.io/banner.png",
-        "width": 518
-      },
-      {
-        "height": 367,
-        "id": 1,
-        "src": "www.earnestine-ritchie.info/banner.png",
-        "width": 481
-      },
-      {
-        "height": 598,
-        "id": 4,
-        "src": "www.will-ernser.biz/banner.png",
-        "width": 360
-      },
-      {
-        "height": 337,
-        "id": 4,
-        "src": "www.audry-langworth.net/banner.png",
-        "width": 384
-      },
-      {
-        "height": 501,
-        "id": 1,
-        "src": "www.dominic-crooks.net/banner.png",
-        "width": 225
-      },
-      {
-        "height": 594,
-        "id": 2,
-        "src": "www.madlyn-jerde.io/banner.png",
-        "width": 323
-      },
-      {
-        "height": 354,
-        "id": 3,
-        "src": "www.scot-oreilly.io/banner.png",
-        "width": 279
+        "width": 500
       }
     ],
     "bid": 74.4,
@@ -89,60 +35,6 @@
   },
   {
     "banners": [
-      {
-        "height": 555,
-        "id": 8,
-        "src": "www.keneth-kulas.co/banner.png",
-        "width": 475
-      },
-      {
-        "height": 462,
-        "id": 9,
-        "src": "www.russel-schiller.biz/banner.png",
-        "width": 345
-      },
-      {
-        "height": 215,
-        "id": 7,
-        "src": "www.denice-watsica.org/banner.png",
-        "width": 293
-      },
-      {
-        "height": 313,
-        "id": 8,
-        "src": "www.caleb-lesch.com/banner.png",
-        "width": 346
-      },
-      {
-        "height": 521,
-        "id": 7,
-        "src": "www.bart-johns.org/banner.png",
-        "width": 566
-      },
-      {
-        "height": 567,
-        "id": 6,
-        "src": "www.keren-hermiston.net/banner.png",
-        "width": 355
-      },
-      {
-        "height": 372,
-        "id": 8,
-        "src": "www.jeramy-towne.info/banner.png",
-        "width": 554
-      },
-      {
-        "height": 278,
-        "id": 1,
-        "src": "www.micheline-price.com/banner.png",
-        "width": 334
-      },
-      {
-        "height": 239,
-        "id": 5,
-        "src": "www.teddy-mayer.info/banner.png",
-        "width": 251
-      },
       {
         "height": 564,
         "id": 1,
@@ -176,64 +68,16 @@
   {
     "banners": [
       {
-        "height": 596,
-        "id": 0,
-        "src": "www.russell-walsh.io/banner.png",
-        "width": 474
-      },
-      {
         "height": 352,
         "id": 3,
         "src": "www.eugenia-bailey.io/banner.png",
-        "width": 516
-      },
-      {
-        "height": 569,
-        "id": 8,
-        "src": "www.isidro-rohan.net/banner.png",
-        "width": 519
+        "width": 360
       },
       {
         "height": 209,
         "id": 5,
         "src": "www.loren-lockman.com/banner.png",
-        "width": 535
-      },
-      {
-        "height": 598,
-        "id": 8,
-        "src": "www.stewart-pacocha.info/banner.png",
-        "width": 483
-      },
-      {
-        "height": 293,
-        "id": 1,
-        "src": "www.lynetta-bruen.name/banner.png",
-        "width": 344
-      },
-      {
-        "height": 352,
-        "id": 6,
-        "src": "www.yvone-zieme.com/banner.png",
-        "width": 416
-      },
-      {
-        "height": 494,
-        "id": 8,
-        "src": "www.leland-green.info/banner.png",
-        "width": 503
-      },
-      {
-        "height": 465,
-        "id": 4,
-        "src": "www.august-wolff.name/banner.png",
-        "width": 424
-      },
-      {
-        "height": 403,
-        "id": 8,
-        "src": "www.yolanda-medhurst.net/banner.png",
-        "width": 360
+        "width": 300
       }
     ],
     "bid": 23.24,
@@ -266,54 +110,6 @@
         "id": 3,
         "src": "www.delena-nikolaus.io/banner.png",
         "width": 281
-      },
-      {
-        "height": 595,
-        "id": 0,
-        "src": "www.eilene-grady.net/banner.png",
-        "width": 525
-      },
-      {
-        "height": 573,
-        "id": 0,
-        "src": "www.rickie-howell.biz/banner.png",
-        "width": 507
-      },
-      {
-        "height": 488,
-        "id": 3,
-        "src": "www.waltraud-larkin.net/banner.png",
-        "width": 588
-      },
-      {
-        "height": 465,
-        "id": 6,
-        "src": "www.spencer-jenkins.info/banner.png",
-        "width": 571
-      },
-      {
-        "height": 352,
-        "id": 7,
-        "src": "www.pat-howell.com/banner.png",
-        "width": 343
-      },
-      {
-        "height": 256,
-        "id": 5,
-        "src": "www.tawnya-hessel.net/banner.png",
-        "width": 540
-      },
-      {
-        "height": 557,
-        "id": 5,
-        "src": "www.jolene-bartell.co/banner.png",
-        "width": 346
-      },
-      {
-        "height": 502,
-        "id": 2,
-        "src": "www.sherman-jones.org/banner.png",
-        "width": 429
       }
     ],
     "bid": 89.64,
