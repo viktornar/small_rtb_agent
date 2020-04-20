@@ -27,7 +27,8 @@ package object model {
 
   final case class BidRequest(id: String, imp: Option[Impressions], site: Site, user: Option[User], device: Option[Device])
 
-  final case class BidResponse(id: String, bidRequestId: String, price: Double, adid: Option[String], banner: Option[Banner])
+  // Error in task description. Campaign described with id as integer and response with string???
+  final case class BidResponse(id: String, bidRequestId: String, price: Double, adid: Option[Int], banner: Option[Banner])
 
   final case class Bid(request: BidRequest, response: Option[BidResponse], campaign: Option[Campaign])
 

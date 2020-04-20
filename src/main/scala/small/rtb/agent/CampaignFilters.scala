@@ -52,23 +52,7 @@ object CampaignFilters {
 
   def dimensionPredicate(imp: Impressions)(c: Campaign): Boolean = {
     c.banners.exists(b => {
-      imp.exists(i => {
-        var passed = false
-        if (
-          b.width == i.w.getOrElse(0) && b.height == i.h.getOrElse(0)
-        ) {
-          passed = true
-        }
-
-        if (
-          i.wmax.getOrElse(0) >= b.width && i.wmin.getOrElse(0) <= b.width &&
-            i.hmax.getOrElse(0) >= b.height && i.hmin.getOrElse(0) <= b.height
-        ) {
-          passed = true
-        }
-
-        passed
-      })
+      bannerPredicate(b, imp)
     })
 
   }
@@ -83,5 +67,34 @@ object CampaignFilters {
 
   def bidFloorPredicate(bidFloor: Double)(c: Campaign): Boolean = {
     c.bid <= bidFloor
+  }
+
+  def bannerPredicate(banner: Banner, imp: Impressions): Boolean = {
+    imp.exists(i => {
+      var passed = false
+      if (
+        banner.width == i.w.getOrElse(0) && banner.height == i.h.getOrElse(0)
+      ) {
+        passed = true
+      }
+
+      if (
+        i.wmax.getOrElse(0) >= banner.width && i.wmin.getOrElse(0) <= banner.width &&
+          i.hmax.getOrElse(0) >= banner.height && i.hmin.getOrElse(0) <= banner.height
+      ) {
+        passed = true
+      }
+
+      passed
+    })
+  }
+
+  def getMatchedBanner(campaign: Campaign, imp: Option[Impressions]): Option[Banner] = {
+    imp match {
+      case Some(i) => Some(campaign.banners.filter(b => {
+        bannerPredicate(b, i)
+      }).head)
+      case _ => None
+    }
   }
 }

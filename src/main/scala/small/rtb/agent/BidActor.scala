@@ -2,17 +2,24 @@ package small.rtb.agent
 
 import akka.actor.typed.scaladsl.Behaviors
 import akka.actor.typed.{ActorRef, Behavior}
+import com.github.javafaker.Faker
 
 object BidActor {
 
   def apply(): Behavior[Command] = registry(Set.empty)
 
+  import small.rtb.agent.CampaignFilters.getMatchedBanner
   import small.rtb.agent.model._
 
   def getBidResponse(bidRequest: BidRequest, campaign: Option[Campaign]): Option[BidResponse] = {
     campaign match {
       case None => None
-      case Some(campaign) => Some(BidResponse("", bidRequest.id, 0.0, None, None))
+      case Some(c) =>
+        val faker = new Faker() // Better to initialize in apply?
+        // Not nice solution. Basically CampaignFilters should be responsible for formatting correct
+        // campaign with best matched banner :( on top
+        val banner = getMatchedBanner(c, bidRequest.imp)
+        Some(BidResponse(faker.internet().uuid(), bidRequest.id, c.bid, Some(c.id), banner))
     }
   }
 

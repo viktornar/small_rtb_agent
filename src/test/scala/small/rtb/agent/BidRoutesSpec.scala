@@ -35,15 +35,16 @@ class BidRoutesSpec extends WordSpec with Matchers with ScalaFutures with Scalat
         entityAs[String] should ===("""{"bids":[]}""")
       }
     }
-    "be able to register bid (POST /bids)" in {
-      val bidRequest = BidRequest("uniqueId", None, Site(1, ""), None, None)
+    "be able to get bid response (POST /bids)" in {
+      val bidRequest = BidRequest("8102f7db-ff5e-4cd7-828e-7515ffa4d860", None, Site(6, ""), None, None)
       val bidEntity = Marshal(bidRequest).to[MessageEntity].futureValue
       val request = Post("/bids").withEntity(bidEntity)
 
       request ~> routes ~> check {
         status should ===(StatusCodes.Created)
         contentType should ===(ContentTypes.`application/json`)
-        entityAs[String] should ===("""{"bidRequestId":"uniqueId","id":"","price":0.0}""")
+        entityAs[BidResponse].bidRequestId should ===("8102f7db-ff5e-4cd7-828e-7515ffa4d860")
+        entityAs[BidResponse].adid.get should ===(4)
       }
     }
   }
