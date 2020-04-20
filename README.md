@@ -11,7 +11,7 @@ Solution for rtb agent with Akka Http, actors and some simple matching by multip
 
 ### How to test it ###
 
-You can use exported collection of request that can be imported into postman :) Exported collections are placed as SimpleRtb.postman_collection.json at root.
+You can use exported collection of requests that can be imported into postman :) Exported collections are placed as SimpleRtb.postman_collection.json at root.
 
 ![req_example](images/req_example_1.png)
 
@@ -37,3 +37,4 @@ With Java streams it is quite easy, but with Akka I'm not familiar quite well, s
 correct queries by bid request and get result with scores from elastic search without reimplementing wheel.
 * Tests doesn't cover all possible cases.
 * Code is not fully written in scala idiomatic way. There are space to improve.
+* Code is not extendable and not reusable enough.
