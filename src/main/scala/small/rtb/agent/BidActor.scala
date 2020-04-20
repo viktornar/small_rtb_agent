@@ -12,7 +12,7 @@ object BidActor {
   def getBidResponse(bidRequest: BidRequest, campaign: Option[Campaign]): Option[BidResponse] = {
     campaign match {
       case None => None
-      case campaign => Some(BidResponse("", bidRequest.id, 0.0, None, None))
+      case Some(campaign) => Some(BidResponse("", bidRequest.id, 0.0, None, None))
     }
   }
 

@@ -5,7 +5,6 @@ import akka.actor.typed.{ActorRef, ActorSystem}
 import akka.http.scaladsl.model.StatusCodes
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
-import akka.http.scaladsl.unmarshalling.PredefinedFromStringUnmarshallers._
 import akka.util.Timeout
 import small.rtb.agent.BidActor._
 import small.rtb.agent.CampaignActor._
@@ -28,15 +27,11 @@ class BidRoutes(bidActor: ActorRef[BidActor.Command], campaignActor: ActorRef[Ca
               complete(getBids())
             },
             post {
-              parameters(Symbol("matches").as(CsvSeq[String]).?) {
-                matches => {
-                  entity(as[BidRequest]) { bidRequest =>
-                    onSuccess(getBidResponseForCampaigns(bidRequest, matches)) { bidResponse: Option[BidResponse] =>
-                      bidResponse match {
-                        case None => complete(StatusCodes.NoContent)
-                        case bidResponse => complete((StatusCodes.Created, bidResponse))
-                      }
-                    }
+              entity(as[BidRequest]) { bidRequest =>
+                onSuccess(getBidResponseForCampaigns(bidRequest)) { bidResponse: Option[BidResponse] =>
+                  bidResponse match {
+                    case None => complete(StatusCodes.NoContent)
+                    case bidResponse => complete((StatusCodes.Created, bidResponse))
                   }
                 }
               }
@@ -50,16 +45,11 @@ class BidRoutes(bidActor: ActorRef[BidActor.Command], campaignActor: ActorRef[Ca
   def getBids(): Future[Bids] =
     bidActor.ask(GetBids)
 
-  def getBidResponseForCampaigns(bidRequest: BidRequest, matches: Option[Seq[String]]): Future[Option[BidResponse]] = {
-    val matchBy = defaultMatchesValues.intersect(matches.getOrElse(defaultMatchesValues)) match {
-      case List() => defaultMatchesValues
-      case xs => xs
-    }
-
-    getMatchedCampaign(bidRequest, matchBy).flatMap((campaign: Option[Campaign]) => {
+  def getBidResponseForCampaigns(bidRequest: BidRequest): Future[Option[BidResponse]] = {
+    getMatchedCampaign(bidRequest).flatMap((campaign: Option[Campaign]) => {
       bidActor.ask(CreateBid(bidRequest, campaign, _))
     })
   }
 
-  def getMatchedCampaign(bidRequest: BidRequest, matchBy: Seq[String]): Future[Option[Campaign]] = campaignActor.ask(GetMatchedCampaign(bidRequest, matchBy, _))
+  def getMatchedCampaign(bidRequest: BidRequest): Future[Option[Campaign]] = campaignActor.ask(GetMatchedCampaign(bidRequest, _))
 }

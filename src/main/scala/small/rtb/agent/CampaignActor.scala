@@ -14,12 +14,12 @@ object CampaignActor {
 
   private def registry(campaigns: Set[Campaign]): Behavior[Command] =
     Behaviors.receiveMessage {
-      case GetMatchedCampaign(bidRequest, matchBy, replyTo) =>
-        replyTo ! getMatchedCampaign(bidRequest, matchBy, campaigns)
+      case GetMatchedCampaign(bidRequest, replyTo) =>
+        replyTo ! getMatchedCampaign(bidRequest, campaigns)
         Behaviors.same
     }
 
-  private def getMatchedCampaign(bidRequest: BidRequest, matchBy: Seq[String], campaigns: Set[Campaign]): Option[Campaign] = {
+  private def getMatchedCampaign(bidRequest: BidRequest, campaigns: Set[Campaign]): Option[Campaign] = {
     bidRequest match {
       case BidRequest(_, None, site, None, None) =>
         filterBySite(campaigns.to(LazyList), site)
@@ -42,6 +42,6 @@ object CampaignActor {
 
   sealed trait Command
 
-  final case class GetMatchedCampaign(bidRequest: BidRequest, matchBy: Seq[String], replyTo: ActorRef[Option[Campaign]]) extends Command
+  final case class GetMatchedCampaign(bidRequest: BidRequest, replyTo: ActorRef[Option[Campaign]]) extends Command
 
 }
