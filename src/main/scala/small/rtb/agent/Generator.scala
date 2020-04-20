@@ -30,7 +30,7 @@ object Generator {
   }
 
   def main(args: Array[String]): Unit = {
-    val campaigns: Set[Campaign] = CampaignsGenerator(Some(4), Some(10), Some(1000))
+    val campaigns: Set[Campaign] = CampaignsGenerator(Some(20), Some(10), Some(1000))
     println(campaigns.toJson.prettyPrint)
   }
 }

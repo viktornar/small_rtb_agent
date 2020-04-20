@@ -1,0 +1,170 @@
+{
+  "info": {
+    "_postman_id": "01e11dca-11e3-4f24-8d0b-919e5af8b47d",
+    "name": "SimpleRtb",
+    "description": "API for SmallRTB project.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "POST bid (site, user)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"id\": \"8102f7db-ff5e-4cd7-828e-7515ffa4d860\",\n    \"site\": {\n        \"domain\": \"\",\n        \"id\": 6\n    },\n    \"user\": {\n        \"id\": \"ddd\",\n        \"geo\": {\n            \"country\": \"benin\"\n        }\n    }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/bids",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "bids"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET all bids history",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/bids",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "bids"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST bid (site)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"id\": \"8102f7db-ff5e-4cd7-828e-7515ffa4d860\",\n    \"site\": {\n        \"domain\": \"\",\n        \"id\": 6\n    }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/bids",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "bids"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST bid (site, floor)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"id\": \"8102f7db-ff5e-4cd7-828e-7515ffa4d860\",\n    \"site\": {\n        \"domain\": \"\",\n        \"id\": 6\n    },\n    \"imp\": [\n        {\n            \"id\": \"9102f7db-ff5e-4cd7-828e-7515ffa4d860\",\n            \"bidFloor\": 30\n        }\n    ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/bids",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "bids"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST bid (site, user, floor)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"id\": \"8102f7db-ff5e-4cd7-828e-7515ffa4d860\",\n    \"site\": {\n        \"domain\": \"\",\n        \"id\": 6\n    },\n    \"user\": {\n        \"id\": \"ddd\",\n        \"geo\": {\n            \"country\": \"benin\"\n        }\n    },\n    \"imp\": [\n        {\n            \"id\": \"9102f7db-ff5e-4cd7-828e-7515ffa4d860\",\n            \"bidFloor\": 80\n        },\n        {\n            \"id\": \"9102f7db-ff5e-4cd7-828e-7515ffa4d860\",\n            \"bidFloor\": 20\n        }\n    ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/bids",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "bids"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST bid (site, user, floor, dimension)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"id\": \"8102f7db-ff5e-4cd7-828e-7515ffa4d860\",\n    \"site\": {\n        \"domain\": \"\",\n        \"id\": 9\n    },\n    \"user\": {\n        \"id\": \"ddd\",\n        \"geo\": {\n            \"country\": \"benin\"\n        }\n    },\n    \"imp\": [\n        {\n            \"id\": \"9102f7db-ff5e-4cd7-828e-7515ffa4d860\",\n            \"bidFloor\": 500,\n            \"wmin\": 200,\n            \"wmax\": 400,\n            \"hmin\":200,\n            \"hmax\":500\n        },\n        {\n            \"id\": \"9102f7db-ff5e-4cd7-828e-7515ffa4d860\",\n            \"bidFloor\": 20\n        }\n    ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/bids",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "bids"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "protocolProfileBehavior": {}
+}
