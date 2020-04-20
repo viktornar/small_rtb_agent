@@ -43,8 +43,30 @@ class CampaignFilterSpec extends WordSpec with Matchers {
     }
 
     "should return campaign filtered by bid" in {
-      val imp = List(Impression("ss", Some(500), Some(650), Some(500), Some(500), Some(550), Some(450), Some(50.0)))
+      val imp = List(
+        Impression("ss", Some(500), Some(650), Some(500), Some(500), Some(550), Some(450), Some(50.0)),
+        Impression("ss", Some(500), Some(650), Some(500), Some(500), Some(550), Some(450), None)
+      )
       val matchedCampaigns = filterByBidFloor(campaigns, imp)
+      matchedCampaigns.length should ===(1)
+      matchedCampaigns.toList.head.id should ===(3)
+    }
+    "should return campaign filtered by bid and by dimension and by country and so on" in {
+      val user = Some(User("111", Some(Geo(Some("Guatemala")))))
+      val device = None
+      val site = Site(16, domain = "")
+
+      val imp = List(
+        Impression("ss", Some(200), Some(650), Some(360), Some(200), Some(550), Some(352), Some(50.0)),
+        Impression("ss", Some(200), Some(650), Some(500), Some(500), Some(550), Some(450), None)
+      )
+
+      val matchedCampaigns = filterByDimension(filterByBidFloor(filterByUserOrDevice(
+        filterBySite(campaigns.to(LazyList), site),
+        user,
+        device,
+      ), imp), imp)
+
       matchedCampaigns.length should ===(1)
       matchedCampaigns.toList.head.id should ===(3)
     }
