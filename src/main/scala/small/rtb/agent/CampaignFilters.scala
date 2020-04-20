@@ -71,21 +71,16 @@ object CampaignFilters {
 
   def bannerPredicate(banner: Banner, imp: Impressions): Boolean = {
     imp.exists(i => {
-      var passed = false
-      if (
-        banner.width == i.w.getOrElse(0) && banner.height == i.h.getOrElse(0)
-      ) {
-        passed = true
+      // Match by width and height if exist and then by min and max values.
+      // If no dimension just pass all campaigns.
+      i match {
+        case Impression(_, _, _, Some(w), _, _, Some(h), _) =>
+          banner.width == w && banner.height == h
+        case Impression(_, Some(wmin), Some(wmax), None, Some(hmin), Some(hmax), None, _) =>
+          wmax >= banner.width && wmin <= banner.width &&
+            hmax >= banner.height && hmin <= banner.height
+        case Impression(_, None, None, None, None, None, None, _) => true
       }
-
-      if (
-        i.wmax.getOrElse(0) >= banner.width && i.wmin.getOrElse(0) <= banner.width &&
-          i.hmax.getOrElse(0) >= banner.height && i.hmin.getOrElse(0) <= banner.height
-      ) {
-        passed = true
-      }
-
-      passed
     })
   }
 
