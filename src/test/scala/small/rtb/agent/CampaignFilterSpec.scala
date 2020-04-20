@@ -9,7 +9,7 @@ class CampaignFilterSpec extends WordSpec with Matchers {
   import small.rtb.agent.CampaignFilters._
   import small.rtb.agent.model._
 
-  var campaigns = loadGeneratedTestCampaigns.to(LazyList)
+  val campaigns: Seq[Campaign] = loadGeneratedTestCampaigns.to(LazyList)
 
   "CampaignFilters" should {
     "should return campaign filtered by user (country)" in {
