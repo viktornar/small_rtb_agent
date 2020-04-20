@@ -2,7 +2,6 @@ package small.rtb.agent
 
 import akka.actor.typed.scaladsl.Behaviors
 import akka.actor.typed.{ActorRef, Behavior}
-import small.rtb.agent.generator.CampaignGenerator
 
 
 object CampaignActor {
@@ -20,24 +19,28 @@ object CampaignActor {
     }
 
   private def getMatchedCampaign(bidRequest: BidRequest, campaigns: Set[Campaign]): Option[Campaign] = {
-    bidRequest match {
+    val filteredCampaigns: Option[List[Campaign]] = bidRequest match {
       case BidRequest(_, None, site, None, None) =>
-        filterBySite(campaigns.to(LazyList), site)
+        Some(filterBySite(campaigns.to(LazyList), site).toList)
       case BidRequest(_, None, site, user, device) =>
-        filterByUserOrDevice(
+        Some(filterByUserOrDevice(
           filterBySite(campaigns.to(LazyList), site),
           user,
           device,
-        )
+        ).toList)
       case BidRequest(_, Some(imp), site, user, device) =>
-        filterByDimension(filterByBidFloor(filterByUserOrDevice(
+        Some(filterByDimension(filterByBidFloor(filterByUserOrDevice(
           filterBySite(campaigns.to(LazyList), site),
           user,
           device,
-        ), imp), imp)
+        ), imp), imp).toList)
       case _ => None
     }
-    Some(CampaignGenerator(None, None, None))
+
+    filteredCampaigns match {
+      case Some(cs) => Some(cs.sortWith(_.bid > _.bid).head) // The first one should be more suitable for bid response? Basically, the first element have the biggest bid so it should be prioritized
+      case _ => None
+    }
   }
 
   sealed trait Command

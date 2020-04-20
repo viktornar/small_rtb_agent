@@ -47,7 +47,7 @@ object CampaignFilters {
       imp.exists(i => {
         bidFloorPredicate(i.bidFloor.getOrElse(0))(c)
       })
-    }).sortWith(_.bid > _.bid)
+    })
   }
 
   def dimensionPredicate(imp: Impressions)(c: Campaign): Boolean = {
