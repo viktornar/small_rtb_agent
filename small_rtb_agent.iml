@@ -17,6 +17,7 @@
     <orderEntry type="library" name="sbt: ch.qos.logback:logback-core:1.2.3:jar" level="project" />
     <orderEntry type="library" name="sbt: com.github.javafaker:javafaker:1.0.2:jar" level="project" />
     <orderEntry type="library" name="sbt: com.github.mifmif:generex:1.0.2:jar" level="project" />
+    <orderEntry type="library" name="sbt: com.github.vickumar1981:stringdistance_2.13:1.2.2:jar" level="project" />
     <orderEntry type="library" name="sbt: com.google.protobuf:protobuf-java:3.10.0:jar" level="project" />
     <orderEntry type="library" scope="TEST" name="sbt: com.typesafe.akka:akka-actor-testkit-typed_2.13:2.6.4:jar" level="project" />
     <orderEntry type="library" name="sbt: com.typesafe.akka:akka-actor-typed_2.13:2.6.4:jar" level="project" />

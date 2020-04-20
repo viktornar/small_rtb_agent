@@ -36,14 +36,14 @@ class CampaignFilterSpec extends WordSpec with Matchers {
     }
 
     "should return campaign filtered by dimension" in {
-      val imp = Impression("ss", Some(500), Some(650), Some(500), Some(500), Some(550), Some(450), Some(50.0))
+      val imp = List(Impression("ss", Some(500), Some(650), Some(500), Some(500), Some(550), Some(450), Some(50.0)))
       val matchedCampaigns = filterByDimension(campaigns, imp)
       matchedCampaigns.length should ===(1)
       matchedCampaigns.toList.head.id should ===(1)
     }
 
     "should return campaign filtered by bid" in {
-      val imp = Impression("ss", Some(500), Some(650), Some(500), Some(500), Some(550), Some(450), Some(50.0))
+      val imp = List(Impression("ss", Some(500), Some(650), Some(500), Some(500), Some(550), Some(450), Some(50.0)))
       val matchedCampaigns = filterByBidFloor(campaigns, imp)
       matchedCampaigns.length should ===(1)
       matchedCampaigns.toList.head.id should ===(3)
