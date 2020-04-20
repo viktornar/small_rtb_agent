@@ -56,10 +56,9 @@ class CampaignFilterSpec extends WordSpec with Matchers {
 
     campaignsJson match {
       case None => Set.empty
-      case Some(c) => {
+      case Some(c) =>
         val jsonAst = c.parseJson
         jsonAst.convertTo[Set[Campaign]]
-      }
     }
   }
 }

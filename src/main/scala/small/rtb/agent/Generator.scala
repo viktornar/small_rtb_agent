@@ -12,18 +12,21 @@ object Generator {
   import spray.json._
 
   def apply(): Set[Campaign] = {
-    loadGeneratedCampaigns.getOrElse(Set.empty)
+    loadGeneratedCampaigns
   }
 
-  def loadGeneratedCampaigns: Option[Set[Campaign]] = {
-    import DefaultJsonProtocol._
-    val campaignsJson: String = resourceAsStreamFromSrc(List[String]("campaigns.json")) match {
-      case None => ""
-      case fis => Source.fromInputStream(fis.get, "UTF-8").mkString
+  def loadGeneratedCampaigns: Set[Campaign] = {
+    val campaignsJson: Option[String] = resourceAsStreamFromSrc(List[String]("campaigns.json")) match {
+      case None => None
+      case fis => Option(Source.fromInputStream(fis.get, "UTF-8").mkString)
     }
 
-    val jsonAst = campaignsJson.parseJson
-    Some(jsonAst.convertTo[Set[Campaign]])
+    campaignsJson match {
+      case None => Set.empty
+      case Some(c) =>
+        val jsonAst = c.parseJson
+        jsonAst.convertTo[Set[Campaign]]
+    }
   }
 
   def main(args: Array[String]): Unit = {
