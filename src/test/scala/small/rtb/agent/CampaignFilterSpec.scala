@@ -79,7 +79,7 @@ class CampaignFilterSpec extends WordSpec with Matchers {
     import small.rtb.agent.model._
     import spray.json._
 
-    val campaignsJson: Option[String] = resourceAsStreamFromSrc(List[String]("campaigns-test_3_5_10.json")) match {
+    val campaignsJson: Option[String] = resourceAsStreamFromSrc(List[String]("campaigns-test.json")) match {
       case None => None
       case fis => Option(Source.fromInputStream(fis.get, "UTF-8").mkString)
     }
