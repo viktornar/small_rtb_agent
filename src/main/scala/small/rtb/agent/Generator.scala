@@ -12,10 +12,10 @@ object Generator {
   import spray.json._
 
   def apply(): Set[Campaign] = {
-    loadGeneratedCampaigns.getOrElse(Set.empty).toSet
+    loadGeneratedCampaigns.getOrElse(Set.empty)
   }
 
-  def loadGeneratedCampaigns: Option[Campaigns] = {
+  def loadGeneratedCampaigns: Option[Set[Campaign]] = {
     import DefaultJsonProtocol._
     val campaignsJson: String = resourceAsStreamFromSrc(List[String]("campaigns.json")) match {
       case None => ""

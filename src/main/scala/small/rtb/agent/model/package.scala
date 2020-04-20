@@ -5,14 +5,14 @@ import scala.collection.immutable
 package object model {
   type Banners = List[Banner]
 
-  type Campaigns = Set[Campaign]
-
   type BidRequests = List[BidRequest]
 
   type Impressions = List[Impression]
 
   final case class Campaign(id: Int, country: String, targeting: Targeting, banners: Banners, bid: Double)
 
+  // Important: `targetedSiteIds` should be LazyList so it would be able to contain a big amount of elements without a problem, but I didn't
+  // figure out how convert json to data object with spray json.
   final case class Targeting(targetedSiteIds: List[Int])
 
   final case class Banner(id: Int, src: String, width: Int, height: Int)
