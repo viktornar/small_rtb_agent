@@ -38,7 +38,10 @@ object CampaignActor {
     }
 
     filteredCampaigns match {
-      case Some(cs) => Some(cs.sortWith(_.bid > _.bid).head) // The first one should be more suitable for bid response? Basically, the first element have the biggest bid so it should be prioritized
+      case Some(cs) => cs.sortWith(_.bid > _.bid) match {
+        case h :: _ => Some(h)
+        case _ => None
+      } // The first one should be more suitable for bid response? Basically, the first element have the biggest bid so it should be prioritized
       case _ => None
     }
   }

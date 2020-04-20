@@ -36,8 +36,11 @@ class BidRoutesSpec extends WordSpec with Matchers with ScalaFutures with Scalat
       }
     }
     "be able to get bid response (POST /bids)" in {
+      import spray.json._
       val bidRequest = BidRequest("8102f7db-ff5e-4cd7-828e-7515ffa4d860", None, Site(6, ""), None, None)
       val bidEntity = Marshal(bidRequest).to[MessageEntity].futureValue
+
+      println(bidRequest.toJson)
       val request = Post("/bids").withEntity(bidEntity)
 
       request ~> routes ~> check {
